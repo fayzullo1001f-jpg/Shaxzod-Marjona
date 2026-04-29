@@ -12,7 +12,6 @@ import groom from "./img/cake-cutting-tradition-wedding-planning-yacht-charter-n
 
 function App() {
     const [timeLeft, setTimeLeft] = useState("");
-    const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
 
     const weddingDate = useMemo(
@@ -20,7 +19,7 @@ function App() {
         []
     );
 
-    // ⏱ TIMER (sekund bilan)
+    // ⏱ TIMER
     useEffect(() => {
         const interval = setInterval(() => {
             const now = new Date().getTime();
@@ -42,47 +41,42 @@ function App() {
         return () => clearInterval(interval);
     }, [weddingDate]);
 
-    // 🎵 AUTO MUSIC (birinchi clickda)
+    // 🎵 MUSIC (muted autoplay + click enable)
     useEffect(() => {
-        const playMusic = () => {
-            const audio = audioRef.current;
+        const audio = audioRef.current;
+
+        if (audio) {
+            audio.muted = true;
+            audio.play().catch(() => {});
+        }
+
+        const enableSound = () => {
             if (audio) {
+                audio.muted = false;
                 audio.play().catch(() => {});
-                setIsPlaying(true);
             }
-            window.removeEventListener("click", playMusic);
+            window.removeEventListener("click", enableSound);
         };
 
-        window.addEventListener("click", playMusic);
-
-        return () => window.removeEventListener("click", playMusic);
+        window.addEventListener("click", enableSound);
+        return () => window.removeEventListener("click", enableSound);
     }, []);
 
     const fadeUp = {
         hidden: { opacity: 0, y: 80 },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.8 }
-        }
+        show: { opacity: 1, y: 0, transition: { duration: 0.8 } }
     };
 
     return (
         <div className="app">
 
             {/* AUDIO */}
-            <audio ref={audioRef} loop>
+            <audio ref={audioRef} autoPlay loop>
                 <source src={musicFile} type="audio/mp3" />
             </audio>
 
             {/* HERO */}
-            <motion.section
-                className="hero"
-                initial={{ opacity: 0, y: 80 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-            >
+            <motion.section className="hero" initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }}>
                 <motion.div
                     className="hero_text"
                     initial="hidden"
@@ -92,17 +86,9 @@ function App() {
                         show: { transition: { staggerChildren: 0.25 } }
                     }}
                 >
-                    <motion.h1 variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}>
-                        SHAXZOD
-                    </motion.h1>
-
-                    <motion.span variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}>
-                        &
-                    </motion.span>
-
-                    <motion.h1 variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}>
-                        MARJONA
-                    </motion.h1>
+                    <motion.h1>SHAXZOD</motion.h1>
+                    <motion.span>&</motion.span>
+                    <motion.h1>MARJONA</motion.h1>
                 </motion.div>
 
                 <div className="hero_div"></div>
@@ -110,13 +96,13 @@ function App() {
             </motion.section>
 
             {/* INFO */}
-            <motion.section className="section sed" initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }}>
+            <motion.section className="section sed" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
                 <h2>TO‘Y TAKLIFNOMASI</h2>
 
                 <p>
                     Hurmatli mehmonimiz <br />
-                    Sizni 1 may soat 18:00 da Shaxzod va Marjonalarning nikoh to'ylari
-                    munosabati bilan Toshkent shahar Versal to'yxonasiga taklif qilamiz
+                    Sizni 1 may soat 18:00 da Shaxzod va Marjona nikoh to‘yiga
+                    Toshkent shahar Versal to‘yxonasiga taklif qilamiz
                 </p>
 
                 <img className="marry" src={married} alt="" />
@@ -125,7 +111,7 @@ function App() {
             </motion.section>
 
             {/* CALENDAR */}
-            <motion.section className="section seds" initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }}>
+            <motion.section className="section seds" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
                 <h2 className="wed">WEDDING DATE</h2>
 
                 <img className="cake" src={groom} alt="" />
@@ -150,7 +136,7 @@ function App() {
             </motion.section>
 
             {/* LOCATION */}
-            <motion.section className="section sect" initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }}>
+            <motion.section className="section sect" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
                 <h2>Versal to‘yxonasi</h2>
 
                 <img src={restaurant} alt="" className="restaurant" />
@@ -163,15 +149,17 @@ function App() {
                     src="https://www.google.com/maps?q=Versal%20to'yxonasi%20Toshkent&output=embed"
                 />
 
-                <button onClick={() =>
-                    window.open("https://www.google.com/maps?q=Versal+to'yxonasi+Toshkent")
-                }>
+                <button
+                    onClick={() =>
+                        window.open("https://www.google.com/maps?q=Versal+to'yxonasi+Toshkent")
+                    }
+                >
                     Open Map
                 </button>
             </motion.section>
 
             {/* TIMELINE */}
-            <motion.section className="section sed" variants={fadeUp} initial="hidden" whileInView="show">
+            <motion.section className="section sed" initial="hidden" whileInView="show" variants={fadeUp}>
                 <h2 className="ser">TO‘Y DASTURI</h2>
 
                 <div className="timeline">
@@ -179,14 +167,14 @@ function App() {
                         ["17:00", "Mehmonlar kutib olish"],
                         ["18:00", "Boshlanish vaqti"],
                         ["19:00", "Marosim davomi"],
-                        ["22:00", "Tort kesish🎂"]
+                        ["22:00", "Tort kesish 🎂"]
                     ].map(([time, event], i) => (
                         <motion.div
                             className="time-item"
                             key={i}
                             initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.25 }}
+                            transition={{ delay: i * 0.2 }}
                         >
                             <div className="time">{time}</div>
                             <div>{event}</div>
@@ -198,7 +186,7 @@ function App() {
             </motion.section>
 
             {/* FOOTER */}
-            <motion.section className="footer" initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }}>
+            <motion.section className="footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
                 <h1>
                     Shaxzod <br /> & <br /> Marjona
                 </h1>
