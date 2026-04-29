@@ -165,31 +165,36 @@ function App() {
             </motion.section>
 
             {/* TIMELINE */}
-            <motion.section className="section sed" initial="hidden" whileInView="show" variants={fadeUp}>
-                <h2 className="ser">TO‘Y DASTURI</h2>
+            <motion.section
+                className="section sev"
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+            >
+                <h2>TO‘Y DASTURI</h2>
 
                 <div className="timeline">
                     {[
                         ["17:00", "Mehmonlar kutib olish"],
                         ["18:00", "Boshlanish vaqti"],
-                        ["19:00", "Marosim davomi"],
+                        ["19:00", "Nikoh marosimi"],
+                        ["20:00", "Dastur davom etadi"],
                         ["22:00", "Tort kesish 🎂"]
-                    ].map(([time, event], i) => (
+                    ].map(([time, text], i) => (
                         <motion.div
-                            className="time-item"
                             key={i}
-                            initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
+                            className="timeline_item"
+                            initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.2 }}
+                            transition={{ duration: 0.5, delay: i * 0.15 }}
                         >
-                            <div className="time">{time}</div>
-                            <div>{event}</div>
+                            <div className="time_box">{time}</div>
+                            <div className="text_box">{text}</div>
                         </motion.div>
                     ))}
-                </div>
-
-                <img className="ring" src={ring} alt="" />
+                </div>  <img className="ring" src={ring} alt="" />
             </motion.section>
+
 
             {/* FOOTER */}
             <motion.section className="footer">
