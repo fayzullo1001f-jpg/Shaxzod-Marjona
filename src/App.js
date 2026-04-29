@@ -41,7 +41,7 @@ function App() {
         return () => clearInterval(interval);
     }, [weddingDate]);
 
-    // 🎵 MUSIC (muted autoplay + click enable)
+    // 🎵 MUSIC AUTO PLAY (click bilan ovoz yoqiladi)
     useEffect(() => {
         const audio = audioRef.current;
 
@@ -76,7 +76,11 @@ function App() {
             </audio>
 
             {/* HERO */}
-            <motion.section className="hero" initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }}>
+            <motion.section
+                className="hero"
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
+            >
                 <motion.div
                     className="hero_text"
                     initial="hidden"
@@ -96,7 +100,7 @@ function App() {
             </motion.section>
 
             {/* INFO */}
-            <motion.section className="section sed" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+            <motion.section className="section sed">
                 <h2>TO‘Y TAKLIFNOMASI</h2>
 
                 <p>
@@ -111,7 +115,7 @@ function App() {
             </motion.section>
 
             {/* CALENDAR */}
-            <motion.section className="section seds" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+            <motion.section className="section seds">
                 <h2 className="wed">WEDDING DATE</h2>
 
                 <img className="cake" src={groom} alt="" />
@@ -124,7 +128,9 @@ function App() {
                             <div key={d}>{d}</div>
                         ))}
 
-                        {[...Array(4)].map((_, i) => <div key={i}></div>)}
+                        {[...Array(4)].map((_, i) => (
+                            <div key={i}></div>
+                        ))}
 
                         {Array.from({ length: 31 }, (_, i) => (
                             <div key={i} className={i + 1 === 1 ? "active" : ""}>
@@ -136,7 +142,7 @@ function App() {
             </motion.section>
 
             {/* LOCATION */}
-            <motion.section className="section sect" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+            <motion.section className="section sect">
                 <h2>Versal to‘yxonasi</h2>
 
                 <img src={restaurant} alt="" className="restaurant" />
@@ -186,7 +192,7 @@ function App() {
             </motion.section>
 
             {/* FOOTER */}
-            <motion.section className="footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+            <motion.section className="footer">
                 <h1>
                     Shaxzod <br /> & <br /> Marjona
                 </h1>
