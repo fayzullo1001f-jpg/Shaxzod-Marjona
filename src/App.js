@@ -4,6 +4,9 @@ import "./App.css";
 
 import musicFile from "./music/МОТ_Когда_мужчина_влюблён_Премьера_клипа,_2024.mp3";
 
+import play from "./img/circle-play-regular-full.svg";
+import pause from "./img/circle-pause-regular-full.svg";
+
 import restaurant from "./img/L_height.webp";
 import ring from "./img/pngtree-elegant-wedding-jewelry-set-featuring-wedding-rings-on-a-white-textured-image_13613257.png";
 import bride from "./img/pexels-photo-35234597.webp";
@@ -12,6 +15,8 @@ import groom from "./img/cake-cutting-tradition-wedding-planning-yacht-charter-n
 
 function App() {
     const [timeLeft, setTimeLeft] = useState("");
+    const [isPlaying, setIsPlaying] = useState(false);
+
     const audioRef = useRef(null);
 
     const weddingDate = useMemo(
@@ -41,62 +46,47 @@ function App() {
         return () => clearInterval(interval);
     }, [weddingDate]);
 
-    // 🎵 MUSIC AUTO PLAY (click bilan ovoz yoqiladi)
-    useEffect(() => {
+    // 🎵 PLAY / PAUSE MUSIC
+    const toggleMusic = () => {
         const audio = audioRef.current;
+        if (!audio) return;
 
-        if (audio) {
-            audio.muted = true;
+        if (isPlaying) {
+            audio.pause();
+            setIsPlaying(false);
+        } else {
             audio.play().catch(() => {});
+            setIsPlaying(true);
         }
-
-        const enableSound = () => {
-            if (audio) {
-                audio.muted = false;
-                audio.play().catch(() => {});
-            }
-            window.removeEventListener("click", enableSound);
-        };
-
-        window.addEventListener("click", enableSound);
-        return () => window.removeEventListener("click", enableSound);
-    }, []);
-
-    const fadeUp = {
-        hidden: { opacity: 0, y: 80 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.8 } }
     };
 
     return (
         <div className="app">
 
             {/* AUDIO */}
-            <audio ref={audioRef} autoPlay loop>
+            <audio ref={audioRef} loop>
                 <source src={musicFile} type="audio/mp3" />
             </audio>
 
             {/* HERO */}
-            <motion.section
-                className="hero"
-                initial={{ opacity: 0, y: 80 }}
-                whileInView={{ opacity: 1, y: 0 }}
-            >
-                <motion.div
-                    className="hero_text"
-                    initial="hidden"
-                    whileInView="show"
-                    variants={{
-                        hidden: {},
-                        show: { transition: { staggerChildren: 0.25 } }
-                    }}
-                >
+            <motion.section className="hero">
+                <motion.div className="hero_text">
                     <motion.h1>SHAXZOD</motion.h1>
                     <motion.span>&</motion.span>
                     <motion.h1>MARJONA</motion.h1>
                 </motion.div>
-
                 <div className="hero_div"></div>
                 <p className="date">01 MAY 2026</p>
+
+                <div className="music_btn" onClick={toggleMusic}>
+                    <img
+                        src={isPlaying ? pause : play}
+                        alt="music"
+                        className="music_icon"
+                    />
+                </div>
+
+
             </motion.section>
 
             {/* INFO */}
@@ -165,12 +155,7 @@ function App() {
             </motion.section>
 
             {/* TIMELINE */}
-            <motion.section
-                className="section sev"
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-            >
+            <motion.section className="section sev">
                 <h2>TO‘Y DASTURI</h2>
 
                 <div className="timeline">
@@ -181,20 +166,15 @@ function App() {
                         ["20:00", "Dastur davom etadi"],
                         ["22:00", "Tort kesish 🎂"]
                     ].map(([time, text], i) => (
-                        <motion.div
-                            key={i}
-                            className="timeline_item"
-                            initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: i * 0.15 }}
-                        >
+                        <div key={i} className="timeline_item">
                             <div className="time_box">{time}</div>
                             <div className="text_box">{text}</div>
-                        </motion.div>
+                        </div>
                     ))}
-                </div>  <img className="ring" src={ring} alt="" />
-            </motion.section>
+                </div>
 
+                <img className="ring" src={ring} alt="" />
+            </motion.section>
 
             {/* FOOTER */}
             <motion.section className="footer">

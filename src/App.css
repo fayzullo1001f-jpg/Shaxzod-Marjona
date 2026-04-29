@@ -4,26 +4,52 @@
   margin: 0;
   padding: 0;
 }
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  width: 100%;
-}
-
-.app {
-  overflow-x: hidden;
-  width: 100%;
-}
 body {
   margin: 0;
   background: #0F172A; /* 🔥 asosiy dark */
   font-family: 'Montserrat', sans-serif;
   color: #E5E7EB;
-  display: flex;
+  display: block;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* umumiy */
+body {
+  -ms-overflow-style: none;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  position: relative;
+  width: 100%;
+  scrollbar-width: none;
+
+
+  max-width: 100%
+}
+.pointer{
+  width: 25px;
+  height: 50px;
+}
+.app {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .app {
@@ -124,7 +150,24 @@ body {
 }
 
 /* MUSIC */
+.music {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #CBA135;
+  border-radius: 50%;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 20px rgba(203,161,53,0.3);
+}
+
+.music:hover {
+  transform: scale(1.1);
+}
 
 /* CALENDAR */
 .cal-grid {
@@ -400,7 +443,7 @@ button:hover {
   position: absolute;
   left: 0;
   bottom: -5px;
-
+  width: 0;
   height: 2px;
   background: #CBA135;
   animation: lineGrow 1.2s ease forwards;
@@ -450,41 +493,39 @@ button:hover {
   justify-content: space-around;
   gap: 20px;
 }
-html, body {
-  overflow-x: hidden;
-}
-
-.app {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-/* smooth hover */
-.section {
-  transition: 0.4s ease;
-}
-
-.section:hover {
-  transform: translateY(-5px);
-}
-
-/* floating effect already handled by framer-motion */
-.time-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-}
-
-/* ring animation fix */
-.ring {
-  width: 250px;
-  height: 180px;
-  margin-top: 20px;
-}
 .sev{
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 100vh;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+img, .restaurant, .cake, .ring {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.music_btn {
+
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.music_icon {
+  width: 33px;
+  height: 33px;
 }
