@@ -94,9 +94,11 @@ function App() {
                 <h2>TO‘Y TAKLIFNOMASI</h2>
 
                 <p>
-                    Hurmatli mehmonimiz <br />
-                    Sizni 1 may soat 18:00 da Shaxzod va Marjona nikoh to‘yiga
-                    Toshkent shahar Versal to‘yxonasiga taklif qilamiz
+                    Assalomu alaykum! <br/>
+                    Hurmatli mehmonimiz! <br/>
+                    Sizni nikoh to'yimiz munosabati bilan
+                    bo'lib o'tadigan "Visol oqshomi"ga
+                    taklif etamiz.
                 </p>
 
                 <img className="marry" src={married} alt="" />
