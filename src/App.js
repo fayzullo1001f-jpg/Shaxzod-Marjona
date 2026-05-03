@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import "./App.css";
 
-import musicFile from "./music/МОТ_Когда_мужчина_влюблён_Премьера_клипа,_2024.mp3";
+import musicFile from "./music/izzat (mp3cut.net).m4a";
 
 import play from "./img/circle-play-regular-full.svg";
 import pause from "./img/circle-pause-regular-full.svg";
